@@ -246,7 +246,148 @@
             </div>
         </section>
 
-        <!-- CONTENT SECTIONS CONTINUE HERE (Task 4) -->
+        <!-- The Road -->
+        <section id="road" class="explainer-section animate-in">
+            <h2 class="section-heading">The Road: Fowler Avenue Connector</h2>
+            <p>The road project and housing proposals are interdependent. The Fowler Avenue Connection will extend Fowler from Oak Street to Huffine Lane as a 2-lane minor arterial with shared-use paths, a roundabout at Annie/Durston, and a traffic signal at Babcock.</p>
+
+            <div class="road-timeline">
+                <div class="road-phase">
+                    <div class="road-phase-year">2026</div>
+                    <div class="road-phase-detail">
+                        <strong>Phase 1:</strong> Oak to Durston<br>Construction begins summer 2026
+                    </div>
+                </div>
+                <div class="road-phase">
+                    <div class="road-phase-year">2027</div>
+                    <div class="road-phase-detail">
+                        <strong>Phase 2:</strong> Durston to Babcock
+                    </div>
+                </div>
+                <div class="road-phase">
+                    <div class="road-phase-year">2028</div>
+                    <div class="road-phase-detail">
+                        <strong>Phase 3:</strong> Babcock to Huffine
+                    </div>
+                </div>
+            </div>
+
+            <p>At the 60% design stage, the Harvest Creek buffer was reduced from 30 feet to 15 feet. Development should be planned in direct coordination with road construction &mdash; not decided in isolation beforehand.</p>
+        </section>
+
+        <!-- What You Can Do -->
+        <section id="act" class="explainer-section explainer-section-highlight animate-in">
+            <h2 class="section-heading">What You Can Do</h2>
+            <p class="section-intro">The 3-minute civic workout. Every step counts.</p>
+
+            <div class="action-steps">
+                <div class="action-step-item">
+                    <div class="action-step-num">1</div>
+                    <div class="action-step-body">
+                        <h3>Write your comment <span class="action-time">60 seconds</span></h3>
+                        <p>Our tool generates a personalized public comment for both proposals. You review it, edit if you want, and send from your own email.</p>
+                        <a href="/" class="btn-action-cta">Generate Your Comment &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="action-step-item">
+                    <div class="action-step-num">2</div>
+                    <div class="action-step-body">
+                        <h3>Share with 3 neighbors <span class="action-time">30 seconds</span></h3>
+                        <p>Copy a ready-made message and paste it where your neighbors are.</p>
+                        <div class="share-blocks">
+                            <div class="share-block" x-data="{ copied: false }">
+                                <div class="share-block-label">For Nextdoor / Facebook</div>
+                                <div class="share-block-text">The city wants to build 5-story buildings behind Harvest Creek homes. Written comments due April 15. This tool writes your comment in 60 seconds: https://protectharvestcreek.com</div>
+                                <button @click="fallbackCopy($el.previousElementSibling.textContent.trim()); copied = true; setTimeout(() => copied = false, 2000)" class="btn-share-copy-sm" :class="copied && 'copied'" x-text="copied ? 'Copied!' : 'Copy'"></button>
+                            </div>
+                            <div class="share-block" x-data="{ copied: false }">
+                                <div class="share-block-label">For text / SMS</div>
+                                <div class="share-block-text">Have you seen what they're planning on Fowler Ave? 5-story buildings behind our homes. Comment deadline Apr 15. Takes 60 sec: https://protectharvestcreek.com</div>
+                                <button @click="fallbackCopy($el.previousElementSibling.textContent.trim()); copied = true; setTimeout(() => copied = false, 2000)" class="btn-share-copy-sm" :class="copied && 'copied'" x-text="copied ? 'Copied!' : 'Copy'"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-step-item">
+                    <div class="action-step-num">3</div>
+                    <div class="action-step-body">
+                        <h3>Mark your calendar <span class="action-time">10 seconds</span></h3>
+                        <p>The hearing is <strong>April 20 at 6 PM</strong> at City Hall (121 N Rouse Ave). You can attend in person or submit comments remotely.</p>
+                    </div>
+                </div>
+
+                <div class="action-step-item">
+                    <div class="action-step-num">4</div>
+                    <div class="action-step-body">
+                        <h3>Show up</h3>
+                        <p>There are only 5 City Commissioners. If 3 of them hear from enough neighbors, the zoning proposal fails. Your comment is not symbolic &mdash; it's decisive.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section id="resources" class="explainer-section animate-in">
+            <h2 class="section-heading">Learn More</h2>
+
+            <details class="resource-group" open>
+                <summary>Official City Resources</summary>
+                <ul class="resource-list">
+                    <li><a href="https://engage.bozeman.net/fowler" target="_blank" rel="noopener">Fowler Avenue Connection &mdash; Engage Bozeman</a></li>
+                    <li><a href="https://engage.bozeman.net/fowlerhousing" target="_blank" rel="noopener">Fowler Ave Community Housing &mdash; Engage Bozeman</a></li>
+                    <li><a href="https://www.bozeman.net/our-city/city-projects/fowler-avenue-connection" target="_blank" rel="noopener">Fowler Avenue Connection &mdash; City of Bozeman</a></li>
+                    <li><a href="https://bozeman-community-plan-1-bozeman.hub.arcgis.com/" target="_blank" rel="noopener">Bozeman Community Plan &mdash; Growth Policy &amp; Future Land Use Map</a></li>
+                    <li><a href="https://www.arcgis.com/apps/webappviewer/index.html?id=59e315bce7b84d6bbcf22fbd3fa9460b" target="_blank" rel="noopener">Bozeman Interactive Zoning Map</a></li>
+                    <li><a href="https://library.municode.com/mt/bozeman/codes/code_of_ordinances?nodeId=PTIICOOR_CH38UNDECO_ART3ZODILAUS" target="_blank" rel="noopener">Bozeman Code of Ordinances &mdash; Zoning Districts</a></li>
+                    <li><a href="https://www.bozeman.net/departments/community-development/planning/community-plans-documents-reports" target="_blank" rel="noopener">Community Plans, Documents &amp; Reports</a></li>
+                </ul>
+            </details>
+
+            <details class="resource-group">
+                <summary>News Coverage</summary>
+                <ul class="resource-list">
+                    <li><a href="https://nbcmontana.com/news/local/bozeman-residents-express-concerns-over-proposed-housing-project" target="_blank" rel="noopener">Residents Express Concerns Over Proposed Housing &mdash; NBC Montana</a></li>
+                    <li><a href="https://www.bozemandailychronicle.com/news/bozeman-montana-fowler-avenue-housing/article_b8da3a5a-4733-4eb2-955d-c79101b72af9.html" target="_blank" rel="noopener">Bozeman Eyes New Housing Along Fowler &mdash; Daily Chronicle</a></li>
+                    <li><a href="https://www.bozemandailychronicle.com/news/bozeman-affordable-housing-project/article_61aa057a-25d2-4fa7-864e-a61f9d96f3dd.html" target="_blank" rel="noopener">Affordable Housing Proposed for Fowler &mdash; Daily Chronicle</a></li>
+                    <li><a href="https://www.kbzk.com/news/local-news/upcoming-fowler-avenue-construction-what-to-expect-resident-thoughts" target="_blank" rel="noopener">Upcoming Construction: What To Expect &mdash; KBZK</a></li>
+                    <li><a href="https://montanafreepress.org/2026/04/03/bozeman-housing-market-cools-but-a-stable-market-hasnt-meant-an-affordable-one/" target="_blank" rel="noopener">Bozeman Housing Market Cools &mdash; Montana Free Press</a></li>
+                </ul>
+            </details>
+
+            <details class="resource-group">
+                <summary>The Bridger View Model</summary>
+                <ul class="resource-list">
+                    <li><a href="http://www.bridgerview.org/" target="_blank" rel="noopener">Bridger View Neighborhood</a></li>
+                    <li><a href="https://headwatershousing.org/about/" target="_blank" rel="noopener">Headwaters Community Housing Trust</a></li>
+                    <li><a href="https://www.minneapolisfed.org/article/2022/what-works-in-housing-affordability-creating-middle-income-housing-with-the-bridger-view-neighborhood" target="_blank" rel="noopener">Federal Reserve Case Study: Bridger View</a></li>
+                    <li><a href="https://www.henneberyeddy.com/project/bridger-view-neighborhood/" target="_blank" rel="noopener">Bridger View Architecture &mdash; Hennebery Eddy</a></li>
+                </ul>
+            </details>
+
+            <details class="resource-group">
+                <summary>Key Contacts</summary>
+                <ul class="resource-list">
+                    <li><strong>Annexation comments:</strong> <a href="mailto:comments@bozeman.net">comments@bozeman.net</a> (reference "Hanson Lane App 25775")</li>
+                    <li><strong>Housing comments:</strong> <a href="mailto:agenda@bozeman.net">agenda@bozeman.net</a> (reference "Fowler Avenue Housing Development")</li>
+                    <li><strong>David Fine</strong>, Economic Development Manager: <a href="mailto:dfine@bozeman.net">dfine@bozeman.net</a></li>
+                    <li><strong>Nick Ross</strong>, Director of Transportation &amp; Engineering: <a href="mailto:nross@bozeman.net">nross@bozeman.net</a></li>
+                </ul>
+            </details>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="explainer-section explainer-cta-final animate-in">
+            {% if comment_count > 0 %}
+            <div class="counter-pill counter-pill-dark">
+                <span class="counter-num">{{ comment_count }}</span> neighbors have already commented
+            </div>
+            {% endif %}
+            <h2>Join them. Write yours.</h2>
+            <a href="/" class="btn-hero-cta btn-hero-cta-lg">Generate Your Comment &rarr;</a>
+            <p class="cta-subtext">It takes about 60 seconds. You review everything before it's sent.</p>
+        </section>
 
     </main>
 
