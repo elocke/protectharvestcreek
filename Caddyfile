@@ -18,7 +18,16 @@
 		reverse_proxy app:5111
 	}
 
+	handle /static/og-image.png {
+		header Cache-Control "public, max-age=86400"
+		reverse_proxy app:5111
+	}
+
 	handle /generate {
+		reverse_proxy app:5111
+	}
+
+	handle /whats-going-on {
 		reverse_proxy app:5111
 	}
 
@@ -27,6 +36,21 @@
 	}
 
 	# Everything else: drop connection
+	handle {
+		respond 404 {
+			close
+		}
+	}
+}
+
+# LAN-only health endpoint for Gatus. Not routed through Cloudflare Tunnel
+# (cloudflared only targets caddy:80), and only reachable on the LXC LAN
+# via host port 8081 (see protectharvestcreek.yml). Keeps /healthz off the
+# public surface while enabling in-lab uptime monitoring.
+:81 {
+	handle /healthz {
+		reverse_proxy protectharvestcreek:5111
+	}
 	handle {
 		respond 404 {
 			close
