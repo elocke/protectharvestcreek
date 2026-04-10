@@ -1,0 +1,35 @@
+:80 {
+	encode gzip zstd
+
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options DENY
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+
+	handle /static/css/style.css {
+		header Cache-Control "public, max-age=3600"
+		reverse_proxy app:5111
+	}
+
+	handle /static/js/app.js {
+		header Cache-Control "public, max-age=3600"
+		reverse_proxy app:5111
+	}
+
+	handle /generate {
+		reverse_proxy app:5111
+	}
+
+	handle / {
+		reverse_proxy app:5111
+	}
+
+	# Everything else: drop connection
+	handle {
+		respond 404 {
+			close
+		}
+	}
+}

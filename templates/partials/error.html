@@ -1,0 +1,10 @@
+<section id="result-area">
+    <hr>
+    <article style="border-left: 4px solid var(--pico-del-color); padding: 1rem 1.25rem;">
+        <p><strong>Something went wrong</strong></p>
+        <p>{{ error }}</p>
+        <button onclick="this.closest('section').innerHTML=''; window.scrollTo({top: 0, behavior: 'smooth'});" class="outline">
+            Dismiss and try again
+        </button>
+    </article>
+</section>

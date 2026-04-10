@@ -1,0 +1,4 @@
+services:
+  caddy:
+    ports:
+      - "5111:80"

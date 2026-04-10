@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.git/
+data/
+TRASH/
+TRASH-FILES.md
+.github/

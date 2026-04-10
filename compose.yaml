@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - app-data:/app/data
+    expose:
+      - "5111"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    expose:
+      - "80"
+    depends_on:
+      - app
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel run
+    env_file: .env
+    depends_on:
+      - caddy
+
+volumes:
+  app-data:
+  caddy-data:
+  caddy-config:

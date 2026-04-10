@@ -1,0 +1,10 @@
+.venv/
+.ruff_cache/
+__pycache__/
+*.pyc
+.env
+data/
+TRASH/
+TRASH-FILES.md
+caddy-data/
+caddy-config/

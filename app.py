@@ -46,7 +46,7 @@ if APPRISE_URL:
     def _apprise_sink(message):
         record = message.record
         _notifier.notify(
-            title=f"stopfowler {record['level'].name}",
+            title=f"protectharvestcreek {record['level'].name}",
             body=str(record["message"]),
         )
 

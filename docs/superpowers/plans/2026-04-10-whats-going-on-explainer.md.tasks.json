@@ -1,0 +1,47 @@
+{
+  "planPath": "docs/superpowers/plans/2026-04-10-whats-going-on-explainer.md",
+  "tasks": [
+    {
+      "id": 1,
+      "subject": "Task 1: Add Route and Template Skeleton",
+      "status": "pending",
+      "description": "**Goal:** Serve a new `/whats-going-on` page with hero section, OG meta tags, and correct head/footer structure matching `index.html`.\n\n**Files:**\n- Modify: `app.py`\n- Create: `templates/whats-going-on.html`\n\n```json:metadata\n{\"files\": [\"app.py\", \"templates/whats-going-on.html\"], \"verifyCommand\": \"curl -s http://localhost:5111/whats-going-on | grep -c 'og:title'\", \"acceptanceCriteria\": [\"GET /whats-going-on returns 200\", \"OG meta tags present\", \"Hero renders with countdown and CTA\", \"Footer matches index.html\"]}\n```"
+    },
+    {
+      "id": 2,
+      "subject": "Task 2: Timeline and Overview Content Sections",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Add 'The Story' timeline section and 'Two Proposals, One Neighborhood' overview section with narrative content.\n\n**Files:**\n- Modify: `templates/whats-going-on.html`\n\n```json:metadata\n{\"files\": [\"templates/whats-going-on.html\"], \"verifyCommand\": \"curl -s http://localhost:5111/whats-going-on | grep -c 'timeline-entry'\", \"acceptanceCriteria\": [\"Timeline renders 7 chronological entries\", \"Overview shows framing quote and Nina Harrison quote\", \"Sections have animate-in classes\", \"Correct id attributes for anchor nav\"]}\n```"
+    },
+    {
+      "id": 3,
+      "subject": "Task 3: Annexation and Housing Issue Sections",
+      "status": "pending",
+      "blockedBy": [2],
+      "description": "**Goal:** Add the two detailed issue sections with facts, scale visualizations, and key date callouts.\n\n**Files:**\n- Modify: `templates/whats-going-on.html`\n\n```json:metadata\n{\"files\": [\"templates/whats-going-on.html\"], \"verifyCommand\": \"curl -s http://localhost:5111/whats-going-on | grep -c 'key-date-callout'\", \"acceptanceCriteria\": [\"Annexation section has all sub-sections\", \"Housing section has scale viz and diff comparison\", \"Both have correct email addresses\", \"Both have id anchors\"]}\n```"
+    },
+    {
+      "id": 4,
+      "subject": "Task 4: Road Section, Action Section, and Resources",
+      "status": "pending",
+      "blockedBy": [3],
+      "description": "**Goal:** Add road context section, 'What You Can Do' action section with share blocks, and collapsible resources.\n\n**Files:**\n- Modify: `templates/whats-going-on.html`\n\n```json:metadata\n{\"files\": [\"templates/whats-going-on.html\"], \"verifyCommand\": \"curl -s http://localhost:5111/whats-going-on | grep -c 'share-block'\", \"acceptanceCriteria\": [\"Road section shows 3-phase timeline\", \"Action section has 4 steps with CTAs\", \"Share blocks copy to clipboard\", \"Resources use details/summary\", \"Final CTA renders\"]}\n```"
+    },
+    {
+      "id": 5,
+      "subject": "Task 5: Explainer-Specific CSS",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Add all CSS for explainer page: sticky nav, timeline, scale viz, diff comparison, action steps, share blocks, resources, print styles.\n\n**Files:**\n- Modify: `static/css/style.css`\n\n```json:metadata\n{\"files\": [\"static/css/style.css\"], \"verifyCommand\": \"grep -c 'explainer' static/css/style.css\", \"acceptanceCriteria\": [\"Sticky nav renders and tracks active section\", \"Timeline has left-border visual line\", \"Scale viz has amber accent\", \"Diff comparison side-by-side on desktop\", \"Print styles hide nav\"]}\n```"
+    },
+    {
+      "id": 6,
+      "subject": "Task 6: Cross-Link from Main Page",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Add 'What's going on?' link in main page hero.\n\n**Files:**\n- Modify: `templates/index.html`\n- Modify: `static/css/style.css`\n\n```json:metadata\n{\"files\": [\"templates/index.html\", \"static/css/style.css\"], \"verifyCommand\": \"curl -s http://localhost:5111/ | grep -c 'whats-going-on'\", \"acceptanceCriteria\": [\"Link appears in hero section\", \"Navigates to /whats-going-on\", \"Styled subtly\"]}\n```"
+    }
+  ],
+  "lastUpdated": "2026-04-10T15:30:00-06:00"
+}

@@ -1,0 +1,69 @@
+<section id="result-area" style="scroll-margin-top: 1rem;">
+    <hr>
+    <hgroup>
+        <h2>Your Comment is Ready</h2>
+        <p>You can edit the text below before copying. Click anywhere in the box to make changes.</p>
+    </hgroup>
+
+    <div id="comment-text" contenteditable="true"
+         style="white-space: pre-wrap; background: var(--pico-card-background-color);
+                padding: 1.5rem; border-radius: 8px; line-height: 1.7; min-height: 150px;
+                border: 2px solid var(--pico-muted-border-color); outline: none;
+                cursor: text;">{{ comment }}</div>
+
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+        <button onclick="copyComment()" id="copy-btn" class="secondary" style="flex: 1; min-width: 180px;">
+            Copy to Clipboard
+        </button>
+        <a role="button" id="email-btn"
+           href="mailto:{{ council_email }}?subject={{ comment_subject | urlencode }}"
+           onclick="copyComment()"
+           style="flex: 1; min-width: 180px; text-align: center;">
+            Open Email to City Commission
+        </a>
+    </div>
+
+    <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem;">
+        <button type="button" class="outline" onclick="regenerate()" id="regen-btn" style="flex: 1;">
+            Try Again — New Version
+        </button>
+    </div>
+
+    <details style="margin-top: 1rem;">
+        <summary>How to send your comment</summary>
+        <ol>
+            <li>Review the comment above — click on the text to edit anything you'd like to change</li>
+            <li>Click <strong>"Copy to Clipboard"</strong></li>
+            <li>Click <strong>"Open Email to City Commission"</strong> — your email app will open</li>
+            <li><strong>Paste</strong> your comment into the email body (Ctrl+V or Cmd+V)</li>
+            <li>Click <strong>Send</strong></li>
+        </ol>
+        <p>Or email <strong>{{ council_email }}</strong> directly with the subject:<br>
+        <em>{{ comment_subject }}</em></p>
+    </details>
+</section>
+
+<script>
+function copyComment() {
+    const text = document.getElementById('comment-text').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copy-btn');
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = orig, 2500);
+    });
+}
+
+function regenerate() {
+    const form = document.querySelector('form');
+    if (form) {
+        const btn = document.getElementById('regen-btn');
+        btn.setAttribute('aria-busy', 'true');
+        btn.textContent = 'Generating new version...';
+        btn.disabled = true;
+        htmx.trigger(form, 'submit');
+    }
+}
+
+document.getElementById('result-area').scrollIntoView({ behavior: 'smooth' });
+</script>
