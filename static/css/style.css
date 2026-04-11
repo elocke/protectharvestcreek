@@ -21,6 +21,7 @@
     --amber-glow: #fffbeb;
 
     --forest: #166534;
+    --forest-hover: #15803d;
     --forest-light: #dcfce7;
 
     --red: #b91c1c;
@@ -987,9 +988,154 @@ body {
 .btn-share-native:hover { background: var(--slate-700); color: white; }
 .btn-share-copy.copied { background: var(--forest); border-color: var(--forest); color: white; }
 .btn-share-sms { background: var(--forest); color: white; border-color: var(--forest); }
-.btn-share-sms:hover { background: #15803d; color: white; }
+.btn-share-sms:hover { background: var(--forest-hover); color: white; }
 .btn-share-email { background: var(--slate-700); color: white; border-color: var(--slate-700); }
 .btn-share-email:hover { background: var(--slate-600); color: white; }
+
+/* ── AI Disclaimer ───────────────────────────────────── */
+.ai-disclaimer {
+    background: var(--amber-light);
+    border: 2px solid var(--amber-bright);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--slate-800);
+}
+.ai-disclaimer strong {
+    color: var(--amber);
+}
+
+/* ── Stay Involved (Post-Submit) ─────────────────────── */
+.stay-involved-section {
+    margin-top: 1.5rem;
+    scroll-margin-top: 1rem;
+}
+.stay-involved-card {
+    background: var(--forest-light);
+    border: 2px solid var(--forest);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    text-align: center;
+}
+.stay-involved-card h3 {
+    margin: 0 0 1rem;
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--slate-900);
+}
+.stay-involved-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: left;
+    margin-bottom: 1.25rem;
+}
+.stay-involved-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+.stay-involved-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+.stay-involved-item strong {
+    display: block;
+    color: var(--slate-900);
+    font-size: 0.95rem;
+}
+.stay-involved-item p {
+    margin: 0.15rem 0 0;
+    color: var(--text-soft);
+    font-size: 0.85rem;
+}
+.btn-stay-involved {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.5rem;
+    min-height: 44px;
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid var(--forest);
+    background: var(--forest);
+    color: white;
+    transition: all 0.15s ease;
+}
+.btn-stay-involved:hover {
+    background: var(--forest-hover);
+    border-color: var(--forest-hover);
+    color: white;
+}
+.btn-stay-involved:focus-visible,
+.btn-add-all-cal:focus-visible {
+    outline: 2px solid var(--forest);
+    outline-offset: 2px;
+}
+.stay-involved-calendar-heading {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    margin: 1.5rem 0 0.75rem;
+}
+.stay-involved-meetings {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+.stay-involved-meeting {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--slate-800);
+}
+.stay-involved-meeting .cal-btn {
+    border: 1px solid var(--forest);
+    background: transparent;
+    color: var(--forest);
+    font-size: 0.8rem;
+    min-height: 44px;
+    padding: 0.4rem 0.75rem;
+}
+.stay-involved-meeting .cal-btn:hover {
+    background: var(--forest);
+    color: white;
+    border-color: var(--forest);
+}
+.btn-add-all-cal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1.2rem;
+    min-height: 40px;
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid var(--forest);
+    background: transparent;
+    color: var(--forest);
+    transition: all 0.15s ease;
+}
+.btn-add-all-cal:hover {
+    background: var(--forest);
+    color: white;
+}
 
 /* ── Footer ───────────────────────────────────────────── */
 footer {
@@ -1075,6 +1221,9 @@ footer strong { color: rgba(255,255,255,0.7); }
     .action-paste-hint { font-size: 0.82rem; }
     .email-picker-grid { grid-template-columns: 1fr 1fr; }
     .deadline-row { font-size: 0.8rem; }
+    .stay-involved-card { padding: 1.25rem; }
+    .stay-involved-meeting { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+    .btn-stay-involved, .btn-add-all-cal { width: 100%; }
 }
 @media (min-width: 769px) {
     .hero { padding: 3.5rem 2rem 3rem; }
