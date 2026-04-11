@@ -416,7 +416,7 @@ document.addEventListener('alpine:init', () => {
         isMobile: window.matchMedia('(pointer: coarse)').matches,
         get mailtoHref() {
             const issue = window.ISSUES[issueKey];
-            return `mailto:${issue.email}?subject=${encodeURIComponent(issue.subject)}`;
+            return `mailto:${issue.email}?subject=${encodeURIComponent(issue.subject)}&cc=${encodeURIComponent('contact@harvestcreekmt.org')}`;
         },
         copyText() {
             const el = document.getElementById(cardId + '-text');
@@ -433,15 +433,16 @@ document.addEventListener('alpine:init', () => {
             const to = encodeURIComponent(issue.email);
             const subject = encodeURIComponent(issue.subject);
             const bodyEnc = encodeURIComponent(body);
+            const cc = encodeURIComponent('contact@harvestcreekmt.org');
             let url;
             if (provider === 'gmail') {
-                url = `https://mail.google.com/mail/?view=cm&to=${to}&su=${subject}&body=${bodyEnc}`;
+                url = `https://mail.google.com/mail/?view=cm&to=${to}&su=${subject}&body=${bodyEnc}&cc=${cc}`;
             } else if (provider === 'outlook') {
-                url = `https://outlook.live.com/mail/0/deeplink/compose?to=${to}&subject=${subject}&body=${bodyEnc}`;
+                url = `https://outlook.live.com/mail/0/deeplink/compose?to=${to}&subject=${subject}&body=${bodyEnc}&cc=${cc}`;
             } else if (provider === 'yahoo') {
-                url = `https://compose.mail.yahoo.com/?to=${to}&subject=${subject}&body=${bodyEnc}`;
+                url = `https://compose.mail.yahoo.com/?to=${to}&subject=${subject}&body=${bodyEnc}&cc=${cc}`;
             } else {
-                url = `mailto:${issue.email}?subject=${subject}&body=${bodyEnc}`;
+                url = `mailto:${issue.email}?subject=${subject}&body=${bodyEnc}&cc=contact@harvestcreekmt.org`;
             }
             this.lastProvider = provider;
             this.state = 'pasting';
@@ -484,8 +485,11 @@ function markCardSent(issueKey, nextCardId) {
             shareSection.style.display = '';
             const data = shareSection._x_dataStack && shareSection._x_dataStack[0];
             if (data) data.show();
-            shareSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
+        const contactSection = document.getElementById('contact-hoa-section');
+        if (contactSection) contactSection.style.display = '';
+        const target = contactSection || shareSection;
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 400);
 }
 
@@ -498,7 +502,12 @@ function showDualResult(annexationText, housingText, count) {
     const hasAnnex = !!annexationText;
     const hasHousing = !!housingText;
 
-    let html = '';
+    let html = `
+        <div class="ai-disclaimer">
+            <strong>Please review before sending.</strong> Comments are generated using AI.
+            Neither this website nor the Harvest Creek HOA is responsible for their content.
+            This website is not affiliated with the Harvest Creek HOA.
+        </div>`;
     if (hasAnnex) html += makeCommentCard(annexationText, 'annexation', 'card-annex', hasHousing ? 'card-housing' : '');
     if (hasHousing) html += makeCommentCard(housingText, 'housing', 'card-housing', '');
 
