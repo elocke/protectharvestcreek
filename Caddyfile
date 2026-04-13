@@ -13,8 +13,8 @@
 		reverse_proxy app:5111
 	}
 
-	handle /static/js/app.js {
-		header Cache-Control "public, max-age=3600"
+	handle /static/js/app.v2.js {
+		header Cache-Control "no-store"
 		reverse_proxy app:5111
 	}
 

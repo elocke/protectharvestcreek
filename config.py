@@ -177,7 +177,7 @@ ISSUES = {
         ),
     },
     "housing": {
-        "email": "agenda@bozeman.net",
+        "email": "comments@bozeman.net",
         "subject": "Public Comment on Fowler Avenue Housing Development",
         "label": "Fowler Housing Development",
         "button": "Comment on Fowler Housing",
