@@ -496,7 +496,7 @@ git commit -m "feat: add timeline and overview content sections"
                 <div>
                     <strong>Fowler Housing Development</strong><br>
                     Consensus process ongoing &mdash; your written comment still matters<br>
-                    <span class="key-date-email">Written comments: <a href="mailto:agenda@bozeman.net?subject=Public%20Comment%20on%20Fowler%20Avenue%20Housing%20Development">agenda@bozeman.net</a></span>
+                    <span class="key-date-email">Written comments: <a href="mailto:comments@bozeman.net?subject=Public%20Comment%20on%20Fowler%20Avenue%20Housing%20Development">comments@bozeman.net</a></span>
                 </div>
             </div>
         </section>
@@ -660,7 +660,7 @@ git commit -m "feat: add annexation and housing issue detail sections"
                 <summary>Key Contacts</summary>
                 <ul class="resource-list">
                     <li><strong>Annexation comments:</strong> <a href="mailto:comments@bozeman.net">comments@bozeman.net</a> (reference "Hanson Lane App 25775")</li>
-                    <li><strong>Housing comments:</strong> <a href="mailto:agenda@bozeman.net">agenda@bozeman.net</a> (reference "Fowler Avenue Housing Development")</li>
+                    <li><strong>Housing comments:</strong> <a href="mailto:comments@bozeman.net">comments@bozeman.net</a> (reference "Fowler Avenue Housing Development")</li>
                     <li><strong>David Fine</strong>, Economic Development Manager: <a href="mailto:dfine@bozeman.net">dfine@bozeman.net</a></li>
                     <li><strong>Nick Ross</strong>, Director of Transportation &amp; Engineering: <a href="mailto:nross@bozeman.net">nross@bozeman.net</a></li>
                 </ul>

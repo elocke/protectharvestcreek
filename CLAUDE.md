@@ -30,7 +30,7 @@ Modular Python backend with two routes:
 ### Two Issues (one LLM call)
 The app generates comments for two separate city processes in a single API call using a `===COMMENT_SPLIT===` delimiter:
 - **Hanson Lane Annexation** (App 25775) — R-B zoning, email to `comments@bozeman.net`
-- **Fowler Housing Development** (Oak to Annie) — email to `agenda@bozeman.net`
+- **Fowler Housing Development** (Oak to Annie) — email to `comments@bozeman.net`
 
 Each has its own email target, subject line, and system prompt context in `config.py`'s `ISSUES` dict. The `done` SSE event includes both `annexation` and `housing` fields with the split/cleaned text.
 
@@ -77,5 +77,5 @@ Simple file-based counter at `data/counter.txt`. Incremented on each successful 
 ## Email Flow
 
 1. User clicks "Copy to Clipboard"
-2. User clicks "Open Email App" (mailto link pre-addressed to agenda@bozeman.net)
+2. User clicks "Open Email App" (mailto link pre-addressed to comments@bozeman.net)
 3. User pastes and sends from their own email client

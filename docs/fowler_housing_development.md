@@ -1,6 +1,6 @@
 # Fowler Housing Development — Reference Brief
 
-Email: agenda@bozeman.net | Subject: "Public Comment on Fowler Avenue Housing Development"
+Email: comments@bozeman.net | Subject: "Public Comment on Fowler Avenue Housing Development"
 
 ## What Is Being Proposed
 
