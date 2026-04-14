@@ -207,10 +207,9 @@ async function handleSubmit() {
     resultArea.innerHTML = `
         <div class="step" style="margin-top: 1rem; border-color: var(--accent);">
             <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+            <p class="loading-heading">Writing <strong>2 separate comments</strong> for you &mdash; one for each issue</p>
             <div id="stream-text" class="comment-box typing-cursor" style="min-height: 80px; color: #334155;"></div>
-            <p style="text-align: center; color: #94a3b8; font-size: 0.85rem; margin-top: 0.5rem;">
-                Generating both comments in one shot...
-            </p>
+            <p class="loading-subhint">You'll send comment 1 of 2 (Annexation), then comment 2 of 2 (Fowler Housing). Takes ~20 seconds total.</p>
         </div>`;
     resultArea.scrollIntoView({ behavior: 'smooth' });
 
@@ -319,8 +318,29 @@ function makeCommentCard(text, issueKey, cardId, nextCardId) {
                     Step 2: Open Email App
                 </a>
                 <div class="action-paste-hint" style="margin-top: 0.5rem;">
-                    Tap the button above, then <strong>paste</strong> your comment into the email body
+                    Tap the button above, then <strong>paste</strong> your comment into the email body.
                 </div>
+
+                <!-- Fallback for browsers without a default mail handler (e.g. Orion on iOS). -->
+                <details class="action-manual-fallback">
+                    <summary>Can't open your email app? Tap for manual details &rarr;</summary>
+                    <div class="manual-field">
+                        <span class="manual-label">To</span>
+                        <code class="manual-value">${issue.email}</code>
+                        <button type="button" @click="copyAddress('${issue.email}')" class="manual-copy-btn" x-text="toCopied ? 'Copied ✓' : 'Copy'"></button>
+                    </div>
+                    <div class="manual-field">
+                        <span class="manual-label">Cc</span>
+                        <code class="manual-value">contact@harvestcreekmt.org</code>
+                        <button type="button" @click="copyAddress('contact@harvestcreekmt.org', 'cc')" class="manual-copy-btn" x-text="ccCopied ? 'Copied ✓' : 'Copy'"></button>
+                    </div>
+                    <div class="manual-field">
+                        <span class="manual-label">Subject</span>
+                        <code class="manual-value">${escapeHtml(issue.subject)}</code>
+                    </div>
+                    <p class="manual-hint">Open your email app manually, paste your comment, then send.</p>
+                </details>
+
                 <div class="action-row-split">
                     <button @click="markSent()" class="btn-action-done">
                         I sent it${nextCardId ? ' &rarr; Next comment' : ''}
@@ -336,6 +356,11 @@ function makeCommentCard(text, issueKey, cardId, nextCardId) {
                 <div class="action-success-banner">
                     <span class="action-check">&#10003;</span>
                     Copied to clipboard!
+                </div>
+
+                <div class="action-truncation-notice">
+                    <strong>Heads up:</strong> long comments sometimes get cut off when we pre-fill the email.
+                    Your comment is already on your clipboard &mdash; if the body looks short or empty, just paste it in.
                 </div>
 
                 <div class="email-picker">
@@ -372,12 +397,14 @@ function makeCommentCard(text, issueKey, cardId, nextCardId) {
                     Email opened with your comment!
                 </div>
                 <div class="action-paste-hint">
-                    Review your comment in the email, then hit <strong>Send</strong>
+                    Review your comment in the email, then hit <strong>Send</strong>.
+                    Body missing or cut off? Tap <strong>Copy body</strong> and paste.
                 </div>
                 <div class="action-row-split">
                     <button @click="markSent()" class="btn-action-done">
                         I sent it${nextCardId ? ' &rarr; Next comment' : ''}
                     </button>
+                    <button @click="retryCopy()" class="btn-action-retry" x-text="bodyCopied ? 'Body copied ✓' : 'Copy body'"></button>
                     <button @click="openProvider(lastProvider)" class="btn-action-retry">
                         Re-open email
                     </button>
@@ -413,10 +440,13 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('cardFlow', (cardId, issueKey, nextCardId) => ({
         state: 'ready',
         lastProvider: 'gmail',
+        bodyCopied: false,
+        toCopied: false,
+        ccCopied: false,
         isMobile: window.matchMedia('(pointer: coarse)').matches,
         get mailtoHref() {
             const issue = window.ISSUES[issueKey];
-            return `mailto:${issue.email}?subject=${encodeURIComponent(issue.subject)}&cc=${encodeURIComponent('contact@harvestcreekmt.org')}`;
+            return `mailto:${issue.email}?cc=${encodeURIComponent('contact@harvestcreekmt.org')}&subject=${encodeURIComponent(issue.subject)}`;
         },
         copyText() {
             const el = document.getElementById(cardId + '-text');
@@ -430,19 +460,25 @@ document.addEventListener('alpine:init', () => {
         openProvider(provider) {
             const issue = window.ISSUES[issueKey];
             const body = this.copyText();
+            // Re-copy body to clipboard right before opening so paste works even
+            // if the webmail/mailto URL gets truncated by the client.
+            fallbackCopy(body);
             const to = encodeURIComponent(issue.email);
             const subject = encodeURIComponent(issue.subject);
             const bodyEnc = encodeURIComponent(body);
             const cc = encodeURIComponent('contact@harvestcreekmt.org');
+            // Ordering matters: cc before body so if the URL is truncated by the
+            // client's length limit, the CC survives. Long comment bodies can push
+            // total URL length past the ~2kb mailto limit in some clients.
             let url;
             if (provider === 'gmail') {
-                url = `https://mail.google.com/mail/?view=cm&to=${to}&su=${subject}&body=${bodyEnc}&cc=${cc}`;
+                url = `https://mail.google.com/mail/?view=cm&to=${to}&cc=${cc}&su=${subject}&body=${bodyEnc}`;
             } else if (provider === 'outlook') {
-                url = `https://outlook.live.com/mail/0/deeplink/compose?to=${to}&subject=${subject}&body=${bodyEnc}&cc=${cc}`;
+                url = `https://outlook.live.com/mail/0/deeplink/compose?to=${to}&cc=${cc}&subject=${subject}&body=${bodyEnc}`;
             } else if (provider === 'yahoo') {
-                url = `https://compose.mail.yahoo.com/?to=${to}&subject=${subject}&body=${bodyEnc}&cc=${cc}`;
+                url = `https://compose.mail.yahoo.com/?to=${to}&cc=${cc}&subject=${subject}&body=${bodyEnc}`;
             } else {
-                url = `mailto:${issue.email}?subject=${subject}&body=${bodyEnc}&cc=contact@harvestcreekmt.org`;
+                url = `mailto:${issue.email}?cc=contact@harvestcreekmt.org&subject=${subject}&body=${bodyEnc}`;
             }
             this.lastProvider = provider;
             this.state = 'pasting';
@@ -450,17 +486,49 @@ document.addEventListener('alpine:init', () => {
         },
         retryCopy() {
             fallbackCopy(this.copyText()).then(() => {
-                this.state = 'copied';
+                if (this.state === 'pasting') {
+                    this.bodyCopied = true;
+                    setTimeout(() => { this.bodyCopied = false; }, 2500);
+                } else {
+                    this.state = 'copied';
+                }
             });
         },
         markSent() {
             this.state = 'sent';
             markCardSent(issueKey, nextCardId);
+        },
+        copyAddress(addr, which) {
+            fallbackCopy(addr).then(() => {
+                const key = which === 'cc' ? 'ccCopied' : 'toCopied';
+                this[key] = true;
+                setTimeout(() => { this[key] = false; }, 2000);
+            });
         }
     }));
 });
 
 /* ── Track sends & scroll to next ─────────────────────── */
+function showNextCommentBanner(nextEl) {
+    let banner = document.getElementById('next-comment-banner');
+    if (!banner) {
+        banner = document.createElement('button');
+        banner.id = 'next-comment-banner';
+        banner.className = 'next-comment-banner';
+        banner.type = 'button';
+        banner.textContent = '\u2193 Send Comment 2 of 2 (Fowler Housing)';
+        banner.addEventListener('click', () => {
+            nextEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        document.body.appendChild(banner);
+    }
+    requestAnimationFrame(() => banner.classList.add('visible'));
+}
+function hideNextCommentBanner() {
+    const banner = document.getElementById('next-comment-banner');
+    if (banner) banner.remove();
+}
+
 const emailsSent = new Set();
 function markCardSent(issueKey, nextCardId) {
     emailsSent.add(issueKey);
@@ -473,9 +541,12 @@ function markCardSent(issueKey, nextCardId) {
                 nextEl.classList.add('result-card-highlight');
                 setTimeout(() => nextEl.classList.remove('result-card-highlight'), 2000);
             }, 400);
+            showNextCommentBanner(nextEl);
         }
         return;
     }
+
+    hideNextCommentBanner();
 
     if (window._progressTracker) window._progressTracker.advance(6);
     setTimeout(() => {
@@ -498,6 +569,7 @@ function showDualResult(annexationText, housingText, count) {
     const btn = document.getElementById('submit-btn');
     btn.disabled = false;
     btn.textContent = 'Generate Both Comments';
+    hideNextCommentBanner();
 
     const hasAnnex = !!annexationText;
     const hasHousing = !!housingText;
