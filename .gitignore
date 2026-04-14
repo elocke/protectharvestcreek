@@ -8,3 +8,5 @@ TRASH/
 TRASH-FILES.md
 caddy-data/
 caddy-config/
+# Exported public-comment PDFs + derived analysis (contains citizen PII)
+docs/export/
