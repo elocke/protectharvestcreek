@@ -33,9 +33,9 @@ If R-B is approved here, it sets the stage for R-B zoning on ALL parcels along F
 ## Key Dates
 
 - **Community Development Board**: April 20, 2026, 6:00 PM, City Hall (121 N Rouse Ave)
-  - Written comments by April 15; final deadline noon April 20
+  - Written comments due by noon April 20 (day of hearing)
 - **City Commission**: May 5, 2026, 6:00 PM, City Hall
-  - Written comments by April 29; final deadline noon May 5
+  - Written comments due by noon May 5 (day of hearing)
   - Two votes: annexation + zoning (back-to-back)
 
 ## Connection to Fowler Housing Development

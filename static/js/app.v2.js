@@ -1,7 +1,7 @@
 /* ── Calendar Events ────────────────────────────────────── */
 const EVENTS = [
-    { title: 'Comment Deadline: Community Dev Board (Fowler)', date: '20260415', allDay: true,
-      desc: 'Written comments due for Community Development Board re: Hanson Lane App 25775. Email comments@bozeman.net' },
+    { title: 'Comment Deadline: Community Dev Board (noon)', date: '20260420', time: '120000', duration: '0000',
+      desc: 'Written comments due by NOON for Community Development Board hearing. Email comments@bozeman.net' },
     { title: 'Community Dev Board Hearing — Hanson Lane Annexation', date: '20260420', time: '180000', duration: '0200',
       desc: 'Hearing at City Hall, 121 N Rouse Ave. In-person & remote oral comments accepted.', location: 'City Hall, 121 N Rouse Ave, Bozeman, MT 59715' },
     { title: 'Comment Deadline: City Commission (Fowler)', date: '20260429', allDay: true,
@@ -49,7 +49,7 @@ document.addEventListener('alpine:init', () => {
             setInterval(() => this.tick(), 60000);
         },
         tick() {
-            const target = new Date('2026-04-15T23:59:59-06:00');
+            const target = new Date('2026-04-20T12:00:00-06:00');
             const diff = target - Date.now();
             if (diff <= 0) { this.expired = true; return; }
             this.days = Math.floor(diff / 86400000);

@@ -45,7 +45,7 @@
             <!-- Countdown -->
             <div x-data="countdown()" x-init="start()" class="countdown-bar">
                 <span class="countdown-icon">&#9200;</span>
-                <span x-show="days > 0"><strong x-text="days"></strong> days, <strong x-text="hours"></strong> hrs left to comment (Apr 15)</span>
+                <span x-show="days > 0"><strong x-text="days"></strong> days, <strong x-text="hours"></strong> hrs left to comment (noon Apr 20)</span>
                 <span x-show="days <= 0 && !expired"><strong x-text="hours"></strong> hrs, <strong x-text="minutes"></strong> min left!</span>
                 <span x-show="expired"><strong>Deadline passed</strong> &mdash; Commission comments due Apr 29</span>
             </div>
@@ -55,7 +55,7 @@
                 <summary>View all deadlines & add to calendar</summary>
                 <div class="deadlines-grid">
                     <div class="deadline-row">
-                        <span>Apr 15 &mdash; Comments due for Dev Board</span>
+                        <span>Apr 20, noon &mdash; Comments due for Dev Board</span>
                         <a href="#" @click.prevent="downloadIcs(0)" class="cal-btn">+ Cal</a>
                     </div>
                     <div class="deadline-row">
