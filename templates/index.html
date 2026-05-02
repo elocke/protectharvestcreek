@@ -7,12 +7,22 @@
 
     <!-- Open Graph -->
     <meta property="og:title" content="Protect Harvest Creek — Write Your Comment">
-    <meta property="og:description" content="Oppose the high-density rezoning next to Harvest Creek in Bozeman, MT. Generate a personalized comment in 60 seconds.">
+    <meta property="og:description" content="Hanson Lane vote at the Bozeman City Commission on May 5. Comments due {{ deadline.short }}. Generate yours in 60 seconds.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="/static/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Protect Harvest Creek">
-    <meta name="twitter:description" content="Oppose high-density rezoning next to our single-family neighborhood. Generate and send a comment in 60 seconds.">
+    <meta name="twitter:description" content="Hanson Lane vote at the City Commission on May 5. Comments due {{ deadline.short }}. Generate yours in 60 seconds.">
+
+    <!-- Server-rendered deadline (read by app.v2.js for countdown + ICS export) -->
+    <meta name="deadline-iso" content="{{ deadline.iso }}">
+    <meta name="deadline-display" content="{{ deadline.display }}">
+    <meta name="deadline-ics-date" content="{{ deadline.ics_date }}">
+    <meta name="deadline-ics-time" content="{{ deadline.ics_time }}">
+    <meta name="deadline-meeting-ics-date" content="{{ deadline.meeting_ics_date }}">
+    <meta name="deadline-meeting-ics-time" content="{{ deadline.meeting_ics_time }}">
+    <meta name="deadline-meeting-location" content="{{ deadline.meeting_location }}">
+    <meta name="deadline-application" content="{{ deadline.primary_application }}">
 
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1f6d1;</text></svg>">
@@ -31,9 +41,9 @@
     <!-- Hero -->
     <header class="hero" role="banner">
         <div class="hero-inner">
-            <div class="hero-badge">Bozeman, MT</div>
+            <div class="hero-badge">Bozeman, MT &middot; City Commission &middot; May 5</div>
             <h1>Protect<br>Harvest Creek</h1>
-            <p class="hero-lead">The Fowler extension is coming &mdash; and two proposals would rezone the land next to it for high-rise, high-density development right in our single-family neighborhood. Generate a personalized public comment, review it, and email the City in under 60 seconds.</p>
+            <p class="hero-lead">The City Commission votes on the Hanson Lane Annexation (App 25775) on Tuesday, May 5. The Community Development Board recommended approval despite 84 written and 12 oral comments opposing it. This is the last chance. Generate a personalized public comment, review it, and email the City in under 60 seconds.</p>
             <a href="/whats-going-on" class="hero-info-link">What's going on? Read the full story &rarr;</a>
 
             {% if comment_count > 0 %}
@@ -45,30 +55,22 @@
             <!-- Countdown -->
             <div x-data="countdown()" x-init="start()" class="countdown-bar">
                 <span class="countdown-icon">&#9200;</span>
-                <span x-show="days > 0"><strong x-text="days"></strong> days, <strong x-text="hours"></strong> hrs left to comment (noon Apr 20)</span>
+                <span x-show="days > 0"><strong x-text="days"></strong> days, <strong x-text="hours"></strong> hrs left to comment ({{ deadline.short }})</span>
                 <span x-show="days <= 0 && !expired"><strong x-text="hours"></strong> hrs, <strong x-text="minutes"></strong> min left!</span>
-                <span x-show="expired"><strong>Deadline passed</strong> &mdash; Commission comments due Apr 29</span>
+                <span x-show="expired"><strong>Comment deadline passed</strong> &mdash; Commission vote tonight at 6 PM, City Hall</span>
             </div>
 
             <!-- Deadlines -->
             <details class="deadlines-panel">
-                <summary>View all deadlines & add to calendar</summary>
+                <summary>View deadlines & add to calendar</summary>
                 <div class="deadlines-grid">
                     <div class="deadline-row">
-                        <span>Apr 20, noon &mdash; Comments due for Dev Board</span>
+                        <span>{{ deadline.deadline_label }} &mdash; {{ deadline.deadline_blurb }}</span>
                         <a href="#" @click.prevent="downloadIcs(0)" class="cal-btn">+ Cal</a>
                     </div>
                     <div class="deadline-row">
-                        <span>Apr 20, 6 PM &mdash; Board hearing, City Hall</span>
+                        <span>{{ deadline.meeting_label }} &mdash; {{ deadline.meeting_blurb }}</span>
                         <a href="#" @click.prevent="downloadIcs(1)" class="cal-btn">+ Cal</a>
-                    </div>
-                    <div class="deadline-row">
-                        <span>Apr 29 &mdash; Comments due for Commission</span>
-                        <a href="#" @click.prevent="downloadIcs(2)" class="cal-btn">+ Cal</a>
-                    </div>
-                    <div class="deadline-row">
-                        <span>May 5, 6 PM &mdash; Commission vote, City Hall</span>
-                        <a href="#" @click.prevent="downloadIcs(3)" class="cal-btn">+ Cal</a>
                     </div>
                 </div>
                 <a href="https://engage.bozeman.net/fowler" target="_blank" rel="noopener" class="engage-link">
@@ -294,18 +296,18 @@
                     Email the HOA
                 </a>
 
-                <h4 class="stay-involved-calendar-heading">Add upcoming meetings to your calendar</h4>
+                <h4 class="stay-involved-calendar-heading">Add the May 5 deadline & vote to your calendar</h4>
                 <div class="stay-involved-meetings">
                     <div class="stay-involved-meeting">
-                        <span>Apr 20, 6 PM &mdash; Board hearing, City Hall</span>
-                        <a href="#" onclick="downloadIcs(1); return false;" class="cal-btn">+ Calendar</a>
+                        <span>{{ deadline.deadline_label }} &mdash; {{ deadline.deadline_blurb }}</span>
+                        <a href="#" onclick="downloadIcs(0); return false;" class="cal-btn">+ Calendar</a>
                     </div>
                     <div class="stay-involved-meeting">
-                        <span>May 5, 6 PM &mdash; Commission vote, City Hall</span>
-                        <a href="#" onclick="downloadIcs(3); return false;" class="cal-btn">+ Calendar</a>
+                        <span>{{ deadline.meeting_label }} &mdash; {{ deadline.meeting_blurb }}</span>
+                        <a href="#" onclick="downloadIcs(1); return false;" class="cal-btn">+ Calendar</a>
                     </div>
                 </div>
-                <button onclick="downloadIcs(1); downloadIcs(3);" class="btn-add-all-cal">Add Both to Calendar</button>
+                <button onclick="downloadIcs(0); downloadIcs(1);" class="btn-add-all-cal">Add Both to Calendar</button>
             </div>
         </div>
 

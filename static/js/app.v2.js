@@ -1,13 +1,25 @@
 /* ── Calendar Events ────────────────────────────────────── */
+/* Built from server-rendered <meta name="deadline-*"> tags so dates live in
+   one place (config.py DEADLINE). Falls back to May 5, 2026 hardcoded values
+   if the meta tags are missing. */
+function readMeta(name, fallback) {
+    const el = document.querySelector(`meta[name="${name}"]`);
+    return el ? el.content : fallback;
+}
+
+const DEADLINE_ICS_DATE = readMeta('deadline-ics-date', '20260505');
+const DEADLINE_ICS_TIME = readMeta('deadline-ics-time', '120000');
+const MEETING_ICS_DATE = readMeta('deadline-meeting-ics-date', '20260505');
+const MEETING_ICS_TIME = readMeta('deadline-meeting-ics-time', '180000');
+const MEETING_LOCATION = readMeta('deadline-meeting-location', 'City Hall, 121 N Rouse Ave, Bozeman, MT 59715');
+const APPLICATION = readMeta('deadline-application', 'Hanson Lane App 25775 Annexation and Zoning');
+
 const EVENTS = [
-    { title: 'Comment Deadline: Community Dev Board (noon)', date: '20260420', time: '120000', duration: '0000',
-      desc: 'Written comments due by NOON for Community Development Board hearing. Email comments@bozeman.net' },
-    { title: 'Community Dev Board Hearing — Hanson Lane Annexation', date: '20260420', time: '180000', duration: '0200',
-      desc: 'Hearing at City Hall, 121 N Rouse Ave. In-person & remote oral comments accepted.', location: 'City Hall, 121 N Rouse Ave, Bozeman, MT 59715' },
-    { title: 'Comment Deadline: City Commission (Fowler)', date: '20260429', allDay: true,
-      desc: 'Written comments due for City Commission re: Hanson Lane App 25775. Email comments@bozeman.net' },
-    { title: 'City Commission Vote — Hanson Lane Annexation', date: '20260505', time: '180000', duration: '0200',
-      desc: 'Two votes: annexation + zoning. In-person & remote oral comments accepted.', location: 'City Hall, 121 N Rouse Ave, Bozeman, MT 59715' },
+    { title: `Comment Deadline: ${APPLICATION}`, date: DEADLINE_ICS_DATE, time: DEADLINE_ICS_TIME, duration: '0000',
+      desc: `Written comments due by NOON for the City Commission vote on ${APPLICATION}. Email comments@bozeman.net with subject "${APPLICATION}".` },
+    { title: `City Commission Vote — ${APPLICATION}`, date: MEETING_ICS_DATE, time: MEETING_ICS_TIME, duration: '0200',
+      desc: 'Back-to-back annexation + zoning votes. Agenda item N. In-person and remote oral public comments accepted.',
+      location: MEETING_LOCATION },
 ];
 
 function downloadIcs(idx) {
@@ -49,7 +61,9 @@ document.addEventListener('alpine:init', () => {
             setInterval(() => this.tick(), 60000);
         },
         tick() {
-            const target = new Date('2026-04-20T12:00:00-06:00');
+            const meta = document.querySelector('meta[name="deadline-iso"]');
+            const iso = meta ? meta.content : '2026-05-05T12:00:00-06:00';
+            const target = new Date(iso);
             const diff = target - Date.now();
             if (diff <= 0) { this.expired = true; return; }
             this.days = Math.floor(diff / 86400000);

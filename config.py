@@ -1,5 +1,27 @@
 """Allowlists and issue configuration for protectharvestcreek."""
 
+# Single source of truth for the live public-comment deadline.
+# When the next decision point arrives, edit this dict and templates/JS pick it
+# up automatically — no other files should hardcode the date.
+DEADLINE = {
+    "iso": "2026-05-05T12:00:00-06:00",
+    "display": "by not later than noon on Tuesday, May 5, 2026",
+    "short": "noon May 5",
+    "deadline_label": "May 5, noon",
+    "deadline_blurb": "Comments due to City Commission",
+    "ics_date": "20260505",
+    "ics_time": "120000",
+    "meeting_body": "City Commission",
+    "meeting_label": "May 5, 6 PM",
+    "meeting_blurb": "Commission vote, City Hall",
+    "meeting_date_display": "May 5, 2026 — 6:00 PM",
+    "meeting_ics_date": "20260505",
+    "meeting_ics_time": "180000",
+    "meeting_location": "City Hall, 121 N Rouse Ave, Bozeman, MT 59715",
+    "agenda_item": "N",
+    "primary_application": "Hanson Lane App 25775 Annexation and Zoning",
+}
+
 CONCERNS = {
     "traffic": (
         "Traffic & Safety",

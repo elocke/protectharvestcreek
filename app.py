@@ -21,6 +21,7 @@ APP_START_TIME = int(time.time())
 
 from config import (
     CONCERNS,
+    DEADLINE,
     EXTRAS,
     ISSUES,
     RELATIONSHIPS,
@@ -52,7 +53,7 @@ if APPRISE_URL:
 
     logger.add(_apprise_sink, level="ERROR")
 
-MODEL = os.environ.get("LLM_MODEL", "google/gemini-2.5-flash")
+MODEL = os.environ.get("LLM_MODEL", "anthropic/claude-sonnet-4.6")
 
 _client = None
 
@@ -117,6 +118,7 @@ async def whats_going_on(request: Request):
         "whats-going-on.html",
         {
             "issues": ISSUES,
+            "deadline": DEADLINE,
             "comment_count": get_count(),
             "cache_bust": APP_START_TIME,
         },
@@ -136,6 +138,7 @@ async def index(request: Request):
             "years_options": YEARS_OPTIONS,
             "tones": TONES,
             "issues": ISSUES,
+            "deadline": DEADLINE,
             "comment_count": get_count(),
             "turnstile_site_key": TURNSTILE_SITE_KEY,
             "cache_bust": APP_START_TIME,
@@ -198,6 +201,10 @@ async def generate(request: Request):
             stream = await get_client().chat.completions.create(
                 model=MODEL,
                 max_tokens=2048,
+                temperature=0.9,
+                top_p=0.95,
+                frequency_penalty=0.3,
+                presence_penalty=0.3,
                 stream=True,
                 messages=[
                     {"role": "system", "content": system_prompt},
