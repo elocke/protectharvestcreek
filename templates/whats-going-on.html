@@ -9,12 +9,15 @@
     <!-- Open Graph -->
     <meta property="og:title" content="What's Going On — Protect Harvest Creek">
     <meta property="og:description"
-        content="Two rezoning proposals threaten our neighborhood. Written comment deadline noon April 20. Generate yours in 60 seconds.">
+        content="Hanson Lane vote at the City Commission on May 5. Comments due {{ deadline.short }}. Generate yours in 60 seconds.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="/static/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="What's Going On — Protect Harvest Creek">
-    <meta name="twitter:description" content="Two rezoning proposals. One neighborhood. Comment deadline noon April 20.">
+    <meta name="twitter:description" content="Hanson Lane City Commission vote May 5. Comments due {{ deadline.short }}.">
+
+    <!-- Server-rendered deadline (read by inline countdown below) -->
+    <meta name="deadline-iso" content="{{ deadline.iso }}">
 
     <!-- Favicon -->
     <link rel="icon"
@@ -45,10 +48,10 @@
             <!-- Countdown -->
             <div x-data="countdown()" x-init="start()" class="countdown-bar">
                 <span class="countdown-icon">&#9200;</span>
-                <span x-show="days > 0"><strong x-text="days"></strong> days left to submit your written comment</span>
+                <span x-show="days > 0"><strong x-text="days"></strong> days left to submit your written comment ({{ deadline.short }})</span>
                 <span x-show="days <= 0 && !expired"><strong x-text="hours"></strong> hrs, <strong
                         x-text="minutes"></strong> min left!</span>
-                <span x-show="expired"><strong>Deadline passed</strong> &mdash; Commission comments due Apr 29</span>
+                <span x-show="expired"><strong>Comment deadline passed</strong> &mdash; Commission vote tonight, 6 PM, City Hall</span>
             </div>
 
             <a href="/" class="btn-hero-cta">Write Your Comment &rarr;</a>
@@ -120,18 +123,20 @@
                         for the entire Fowler corridor, undermining the consensus process the city just agreed to.
                     </div>
                 </div>
-                <div class="timeline-entry timeline-entry-urgent">
+                <div class="timeline-entry">
                     <div class="timeline-year">Apr 20</div>
                     <div class="timeline-content">
-                        <strong>Written comment deadline &amp; public hearing.</strong> Comments due by noon.
-                        Community Development Board hearing at 6:00 PM, City Hall (121 N Rouse Ave).
+                        <strong>Community Development Board recommended approval</strong> &mdash; despite 84+ written
+                        and 12 oral public comments opposing R-B zoning. The CDB recommendation now goes to the City
+                        Commission.
                     </div>
                 </div>
                 <div class="timeline-entry timeline-entry-urgent">
                     <div class="timeline-year">May 5</div>
                     <div class="timeline-content">
-                        <strong>City Commission vote.</strong> Two votes: annexation + zoning. Written comments due
-                        April 29.
+                        <strong>City Commission vote &mdash; this is the deciding meeting.</strong> Written comments
+                        due {{ deadline.display }} to comments@bozeman.net. Two back-to-back votes: annexation and
+                        zoning. Meeting at 6:00 PM, City Hall (121 N Rouse Ave). Hanson Lane is Agenda item N.
                     </div>
                 </div>
             </div>
@@ -157,7 +162,7 @@
         <!-- Issue 1: Hanson Lane Annexation -->
         <section id="annexation" class="explainer-section animate-in">
             <h2 class="section-heading">Issue 1: Hanson Lane Annexation</h2>
-            <span class="issue-badge issue-badge-red">Application 25775 &mdash; Hearing April 20</span>
+            <span class="issue-badge issue-badge-red">Application 25775 &mdash; City Commission Vote May 5</span>
 
             <h3>What's Proposed</h3>
             <ul>
@@ -201,10 +206,10 @@
             <div class="key-date-callout">
                 <div class="key-date-icon">&#128197;</div>
                 <div>
-                    <strong>Community Development Board Hearing</strong><br>
-                    April 20, 2026 &mdash; 6:00 PM<br>
-                    City Hall, 121 N Rouse Ave, Bozeman<br>
-                    <span class="key-date-email">Written comments: <a
+                    <strong>City Commission Vote &mdash; Hanson Lane Annexation (App 25775)</strong><br>
+                    {{ deadline.meeting_date_display }}<br>
+                    City Hall, 121 N Rouse Ave, Bozeman &mdash; Agenda item N<br>
+                    <span class="key-date-email">Written comments {{ deadline.display }}: <a
                             href="mailto:comments@bozeman.net?subject=Hanson%20Lane%20App%2025775%20Annexation%20and%20Zoning">comments@bozeman.net</a></span>
                 </div>
             </div>
@@ -351,9 +356,10 @@
                         <div class="share-blocks">
                             <div class="share-block" x-data="{ copied: false }">
                                 <div class="share-block-label">For Nextdoor / Facebook</div>
-                                <div class="share-block-text">The city wants to build 5-story buildings behind Harvest
-                                    Creek homes. Written comments due by noon April 20. This tool writes your comment in 60
-                                    seconds: https://protectharvestcreek.com</div>
+                                <div class="share-block-text">The City Commission votes May 5 on letting 5-story
+                                    buildings get rezoned next to Harvest Creek. Written comments due {{ deadline.short }} to
+                                    comments@bozeman.net. This tool writes yours in 60 seconds:
+                                    https://protectharvestcreek.com</div>
                                 <button
                                     @click="fallbackCopy($el.previousElementSibling.textContent.trim()); copied = true; setTimeout(() => copied = false, 2000)"
                                     class="btn-share-copy-sm" :class="copied && 'copied'"
@@ -361,9 +367,9 @@
                             </div>
                             <div class="share-block" x-data="{ copied: false }">
                                 <div class="share-block-label">For text / SMS</div>
-                                <div class="share-block-text">Have you seen what they're planning on Fowler Ave? 5-story
-                                    buildings behind our homes. Comment deadline noon Apr 20. Takes 60 sec:
-                                    https://protectharvestcreek.com</div>
+                                <div class="share-block-text">Have you seen what they're planning on Fowler Ave?
+                                    5-story buildings behind our homes. Commission vote May 5. Comment deadline
+                                    {{ deadline.short }}. Takes 60 sec: https://protectharvestcreek.com</div>
                                 <button
                                     @click="fallbackCopy($el.previousElementSibling.textContent.trim()); copied = true; setTimeout(() => copied = false, 2000)"
                                     class="btn-share-copy-sm" :class="copied && 'copied'"
@@ -377,8 +383,10 @@
                     <div class="action-step-num">3</div>
                     <div class="action-step-body">
                         <h3>Mark your calendar <span class="action-time">10 seconds</span></h3>
-                        <p>The hearing is <strong>April 20 at 6 PM</strong> at City Hall (121 N Rouse Ave). You can
-                            attend in person or submit comments remotely.</p>
+                        <p>Comments are due <strong>{{ deadline.display }}</strong>. The Commission vote is at
+                            <strong>{{ deadline.meeting_date_display }}</strong> at City Hall (121 N Rouse Ave). You
+                            can attend in person, give remote oral comment, or just send written comment ahead of the
+                            deadline.</p>
                     </div>
                 </div>
 
@@ -529,7 +537,9 @@
                     setInterval(() => this.tick(), 60000);
                 },
                 tick() {
-                    const target = new Date('2026-04-15T23:59:59-06:00');
+                    const meta = document.querySelector('meta[name="deadline-iso"]');
+                    const iso = meta ? meta.content : '2026-05-05T12:00:00-06:00';
+                    const target = new Date(iso);
                     const diff = target - Date.now();
                     if (diff <= 0) { this.expired = true; return; }
                     this.days = Math.floor(diff / 86400000);

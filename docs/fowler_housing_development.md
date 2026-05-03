@@ -73,4 +73,8 @@ The road project and housing are interdependent. Infrastructure must be aligned.
 
 ## Consensus Process
 
-On January 6, 2026, after months of citizen outcry, the City Commission invited Harvest Creek HOA to participate in a "consensus-based engagement" for the housing development. Preliminary mediation interviews are underway. Any separate zoning actions (like the Hanson Lane annexation) risk undermining this process.
+On January 6, 2026, after months of citizen outcry, the City Commission invited Harvest Creek HOA to participate in a "consensus-based engagement" for the housing development. Phase 2 of that process begins mid-May 2026 and currently includes only four known Harvest Creek homeowners.
+
+Any separate zoning actions risk undermining this process. The most pressing is the **Hanson Lane Annexation** (Application 25775), which the City Commission votes on **Tuesday, May 5, 2026 at 6 PM** in back-to-back annexation + zoning votes. Approving R-B on Hanson Lane before the Fowler housing consensus process produces results would predetermine zoning outcomes for the broader corridor.
+
+Comments on Hanson Lane are due to comments@bozeman.net by not later than noon on Tuesday, May 5, 2026, with subject "Hanson Lane App 25775 Annexation and Zoning".
